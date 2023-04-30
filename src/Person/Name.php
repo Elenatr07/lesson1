@@ -7,7 +7,6 @@ class Name {
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
-
     }
     public function __toString() {
         return $this->firstName . ' ' . $this->lastName.PHP_EOL;
