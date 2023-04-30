@@ -47,7 +47,7 @@ switch ($route) {
         $post = new Post (
             $faker->randomDigitNotNull(),
             $user,
-            $faker->text(100)
+            $faker->realText(100)
         );
         echo $post;
         break;
@@ -62,7 +62,7 @@ switch ($route) {
         $faker->randomDigitNotNull(),
         $user,
         $post,
-        $faker->text(100)
+        $faker->realText(100)
     );
     echo $comment;
         break;
