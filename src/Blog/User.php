@@ -5,9 +5,9 @@ use Geekbrains\LevelTwo\Person\Name;
 
 class User {
     private int $id;
-    private string $username;
+    private Name $username;
     private string $login;
-    public function __construct(int $id, string $username, string $login) {
+    public function __construct(int $id, Name $username, string $login) {
         $this -> id = $id;
         $this -> username = $username;
         $this -> login = $login;
@@ -26,7 +26,7 @@ class User {
     }
 
    
-    public function getUsername(): string
+    public function name(): Name
     {
         return $this->username;
     }

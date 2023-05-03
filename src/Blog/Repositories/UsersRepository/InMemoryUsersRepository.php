@@ -1,6 +1,6 @@
 <?php
 
-namespace Geekbrains\LevelTwo\Blog\Repositories;
+namespace Geekbrains\LevelTwo\Blog\Repositories\UsersRepository;
 
 
 
