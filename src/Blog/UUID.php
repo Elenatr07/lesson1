@@ -5,9 +5,9 @@ namespace Geekbrains\LevelTwo\Blog;
 use Geekbrains\LevelTwo\Blog\Exceptions\InvalidArgumentException;
 
 class UUID
-{  private string $uuidString;
+{   
      
-    public function __construct(string $uuidString) {
+    public function __construct(private string $uuidString) {
    
         if (!uuid_is_valid($uuidString)) {
             throw new InvalidArgumentException(
