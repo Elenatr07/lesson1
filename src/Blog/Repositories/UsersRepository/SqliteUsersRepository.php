@@ -4,6 +4,7 @@ namespace Geekbrains\LevelTwo\Blog\Repositories\UsersRepository;
 use \PDO;
 use Geekbrains\LevelTwo\Blog\User;
 
+
 class SqliteUsersRepository {
     private PDO $connection;
 
@@ -15,11 +16,12 @@ class SqliteUsersRepository {
     public function save (User $user): void 
     {
         $statement = $this->connection-> prepare(
-            'INSERT INTO users (first_name, last_name) VALUES (:first_name, :last_name)'
+            'INSERT INTO users (first_name, last_name, uuid) VALUES (:first_name, :last_name, :uuid)'
         );
         $statement->execute([
             ':first_name' => $user->name()->getfirstName(),
             ':last_name' => $user -> name()->getlastName(),
+            ':uuid' => (string)$user->uuid(),
         ]);
     }
 }
