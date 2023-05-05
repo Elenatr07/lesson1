@@ -5,8 +5,10 @@ class HttpErrorException extends Exception {}
 
 function foo()
 {
+
     try {
-        throw new MyErrorException("Same error ");
+
+        throw new MyErrorException("My error ");
     } catch (MyErrorException $exception) {
         echo "error 1 \n";
         echo $exception->getMessage();
@@ -16,7 +18,7 @@ function foo()
 }
 
 try {
-    echo "start \n";
+    echo "start\n";
     var_dump(foo());
     echo "end\n";
 } catch (HttpErrorException $exception) {
