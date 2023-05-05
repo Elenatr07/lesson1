@@ -7,15 +7,15 @@ use Geekbrains\LevelTwo\Person\Name;
 
 class User {
     private UUID $uuid;
-    private Name $username;
-    private string $login;
-    public function __construct(UUID $uuid, Name $username, string $login) {
+    private Name $name;
+    private string $username;
+    public function __construct(UUID $uuid, Name $name, string $username) {
         $this -> uuid = $uuid;
+        $this -> name = $name;
         $this -> username = $username;
-        $this -> login = $login;
     }
     public function __toString(): string {
-        return "User $this->uuid with name $this->username and login $this->login.". PHP_EOL;
+        return "User $this->uuid with name $this->name and username $this->username.". PHP_EOL;
     }
     public function uuid(): UUID
     {
@@ -25,24 +25,21 @@ class User {
       
     public function name(): Name
     {
-        return $this->username;
+        return $this->name;
     }
 
   
-    public function setUsername(Name $username): void
+    public function setUsername(Name $name): void
     {
-        $this->username = $username;
+        $this->name = $name;
     }
 
    
-    public function getLogin(): string
+    public function username(): string
     {
-        return $this->login;
+        return $this->username;
     }
 
     
-    public function setLogin(string $login): void
-    {
-        $this->login = $login;
-    }
+   
 }
