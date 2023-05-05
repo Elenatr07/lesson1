@@ -1,6 +1,8 @@
 <?php
 
 
+use Geekbrains\LevelTwo\Blog\Post;
+use Geekbrains\LevelTwo\Blog\Repositories\PostRepository\SqlitePostsRepository;
 use Geekbrains\LevelTwo\Blog\User;
 use Geekbrains\LevelTwo\Blog\UUID;
 use Geekbrains\LevelTwo\Person\Name;
@@ -12,18 +14,33 @@ include __DIR__ . "/vendor/autoload.php";
 
 $connection = new PDO ('sqlite:' . __DIR__. '/blog.sqlite');
 $usersRepository = new SqliteUsersRepository($connection);
+$postRepository = new SqlitePostsRepository($connection);
+
+try {
+    $user = $usersRepository->get(new UUID('c08cbba8-999a-4586-bd33-09d6e8c7f624'));
+    //var_dump($user);
+    $post = new Post(
+        UUID::random(),
+        $user,
+        'Title',
+        'Post text'
+    );
+    $postRepository->save($post);
+} catch (Exception $e) {
+    echo $e ->getMessage();
+}
 
 //$usersRepository->save(new User(UUID::random(), new Name('Ivan', 'Ivanov'), "admin"));
 //$usersRepository->save(new User (UUID::random(), new Name('Anna', 'Petrova'), "user"));
 
-$command = new CreateUserCommand($usersRepository);
+//$command = new CreateUserCommand($usersRepository);
 
 /*try {echo $usersRepository-> getByUsername ('admin1');
 } catch (Exception $e) {echo $e -> getMessage();
 }*/
 
-try {$command -> handle(Arguments::fromArgv($argv));
+/*try {$command -> handle(Arguments::fromArgv($argv));
 } catch (Exception $e) { echo $e ->getMessage();
-}
+}*/
 
 

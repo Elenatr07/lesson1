@@ -37,10 +37,8 @@ class SqliteUsersRepository implements UsersRepositoryInterface
             'SELECT * FROM users WHERE uuid =?'
         );
         $statement -> execute([(string)$uuid]);
-        $result = $statement -> fetch(PDO::FETCH_ASSOC);
-        if ($result === false) {
-            throw new UserNotFoundException ("Cannot get user: $uuid");
-        }
+        
+        
         return $this ->getUser($statement, $uuid);
         
     }

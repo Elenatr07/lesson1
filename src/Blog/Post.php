@@ -2,16 +2,19 @@
 namespace Geekbrains\LevelTwo\Blog;
 
 use Geekbrains\LevelTwo\Blog\User;
+use Geekbrains\LevelTwo\Blog\UUID;
 
 
 
 class Post {
-    private int $id;
+    private UUID $uuid;
     private User $user;
+    private string $title;
     private string $text;
-    public function __construct(int $id, User $user, string $text) {
-        $this->id = $id;
+    public function __construct(UUID $uuid, User $user, string $title, string $text) {
+        $this->uuid = $uuid;
         $this->user = $user;
+        $this->title = $title;
         $this->text = $text;
     }
 
@@ -19,13 +22,13 @@ class Post {
         return $this->user . 'writes: ' . $this->text .PHP_EOL;
     }
 
-    public function id(): int
+    public function getUuid(): UUID
     {
-        return $this->id;
+        return $this->uuid;
     }
-    public function setId(int $id): void
+    public function setUuid(UUID $uuid): void
     {
-    $this->id = $id;
+    $this->uuid = $uuid;
     }
     public function getUser(): User
     {
@@ -46,5 +49,15 @@ class Post {
     {
         $this->text = $text;
         return $this;
+    }
+
+    public function getTitle(): string
+    {
+        return $this -> title;
+    }
+
+    public function setTitle(string $title): void 
+    {
+        $this-> title = $title;
     }
 }
