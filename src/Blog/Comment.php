@@ -2,49 +2,52 @@
 
 namespace Geekbrains\LevelTwo\Blog;
 
+use Geekbrains\LevelTwo\Blog\UUID;
+
 class Comment
-{ private int $id;
-    private User $user;
-    private Post $post;
+{ private UUID $uuid;
+    private Post $post_uuid;
+    private User $author_uuid;
+    
     private string $text;
 
-    public function __construct(int $id, User $user, Post $post, string $text )
-    { $this->id = $id;
-      $this->user = $user;
-      $this->post = $post;
-      $this->text = $text;
+    public function __construct(UUID $uuid,  Post $post_uuid, User $author_uuid,string $text )
+    { $this->uuid = $uuid;
+     $this->post_uuid = $post_uuid;
+     $this->author_uuid = $author_uuid;
+     $this->text = $text;
       
     }
 
    
-    public function getId(): int
+    public function getId(): UUID
     {
-        return $this->id;
+        return $this->uuid;
     }
 
-    public function setId(int $id): void
+    public function setId(UUID $uuid): void
     {
-        $this->id = $id;
+        $this->uuid = $uuid;
     }
 
     public function getUser(): User
     {
-        return $this->user;
+        return $this->author_uuid;
     }
 
-    public function setUser(User $user): void
+    public function setUser(User $author_uuid): void
     {
-        $this->user = $user;
+        $this->author_uuid = $author_uuid;
     }
 
     public function getPost(): Post
     {
-        return $this->post;
+        return $this->post_uuid;
     }
 
-    public function setPost(Post $post): void
+    public function setPost(Post $post_uuid): void
     {
-        $this->post = $post;
+        $this->post_uuid = $post_uuid;
     }
 
   
@@ -59,7 +62,7 @@ class Comment
     }
 
     public function __toString() {
-        return $this->user . " writes Commemnt: " . $this->text;
+        return $this->author_uuid . " writes Commemnt: " . $this->text;
     }
 
 }
