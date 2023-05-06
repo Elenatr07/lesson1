@@ -5,6 +5,8 @@ namespace Geekbrains\LevelTwo\Blog\Repositories\PostRepository;
 use \PDO;
 use Geekbrains\LevelTwo\Blog\Post;
 use Geekbrains\LevelTwo\Blog\UUID;
+use Geekbrains\LevelTwo\Blog\Exceptions\PostNotFoundException;
+use Geekbrains\LevelTwo\Blog\Repositories\UsersRepository\SqliteUsersRepository;
 
 class SqlitePostsRepository implements PostRepositoryInterface
 
@@ -39,5 +41,27 @@ class SqlitePostsRepository implements PostRepositoryInterface
 
         return $this->getPost($statement, $uuid);
     }
+    private function getPost(\PDOStatement $statement, string $postUuId): Post
+    {
+        $result = $statement->fetch(\PDO::FETCH_ASSOC);
+       // print_r($result);
+       //die();
 
+        if ($result === false) {
+            throw new PostNotFoundException(
+                "Cannot find post: $postUuId"
+            );
+        }
+
+        $userRepository = new SqliteUsersRepository($this->connection);
+        $user = $userRepository->get(new UUID($result['author_uuid']));
+
+        return new Post(
+            new UUID($result['uuid']),
+            $user,
+            $result['title'],
+            $result['text']
+        );
+
+    }
 }

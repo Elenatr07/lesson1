@@ -18,14 +18,16 @@ $postRepository = new SqlitePostsRepository($connection);
 
 try {
     $user = $usersRepository->get(new UUID('c08cbba8-999a-4586-bd33-09d6e8c7f624'));
-    //var_dump($user);
-    $post = new Post(
+    $post = $postRepository->get(new UUID('d864a579-bedb-4ed3-af96-dc1c5ebddb77'));
+    print_r($post);
+   // var_dump($post);
+    /*$post = new Post(
         UUID::random(),
         $user,
         'Title',
         'Post text'
     );
-    $postRepository->save($post);
+    $postRepository->save($post);*/
 } catch (Exception $e) {
     echo $e ->getMessage();
 }
