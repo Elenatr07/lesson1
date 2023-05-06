@@ -20,12 +20,12 @@ class Comment
     }
 
    
-    public function getId(): UUID
+    public function getUuid(): UUID
     {
         return $this->uuid;
     }
 
-    public function setId(UUID $uuid): void
+    public function setUuid(UUID $uuid): void
     {
         $this->uuid = $uuid;
     }
@@ -40,12 +40,12 @@ class Comment
         $this->author_uuid = $author_uuid;
     }
 
-    public function getPost(): Post
+    public function getPost_uuid(): Post
     {
         return $this->post_uuid;
     }
 
-    public function setPost(Post $post_uuid): void
+    public function setPost_uuid(Post $post_uuid): void
     {
         $this->post_uuid = $post_uuid;
     }
