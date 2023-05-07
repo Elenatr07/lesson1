@@ -21,7 +21,7 @@ try {
     $user = $usersRepository->get(new UUID('c08cbba8-999a-4586-bd33-09d6e8c7f624'));
     $post = $postRepository->get(new UUID('d864a579-bedb-4ed3-af96-dc1c5ebddb77'));
     //print_r($post);
-   // var_dump($post);
+   //var_dump($user);
     /*$post = new Post(
         UUID::random(),
         $user,
@@ -45,12 +45,15 @@ try {
 
 //$command = new CreateUserCommand($usersRepository);
 
-/*try {echo $usersRepository-> getByUsername ('admin1');
+try {echo $usersRepository-> getByUsername ('admin');
 } catch (Exception $e) {echo $e -> getMessage();
-}*/
+}
 
 /*try {$command -> handle(Arguments::fromArgv($argv));
 } catch (Exception $e) { echo $e ->getMessage();
 }*/
+
+
+
 
 
