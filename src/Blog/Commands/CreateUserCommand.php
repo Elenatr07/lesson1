@@ -1,10 +1,10 @@
 <?php
-namespace Geekbrains\LevelTwo\Blog\Command;
+namespace Geekbrains\LevelTwo\Blog\Commands;
 
 use Geekbrains\LevelTwo\Blog\User;
 use Geekbrains\LevelTwo\Blog\UUID;
 use Geekbrains\LevelTwo\Person\Name;
-use Geekbrains\LevelTwo\Blog\Command\Arguments;
+use Geekbrains\LevelTwo\Blog\Commands\Arguments;
 use Geekbrains\LevelTwo\Blog\Exceptions\CommandException;
 use Geekbrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
 use Geekbrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;

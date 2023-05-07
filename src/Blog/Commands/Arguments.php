@@ -1,5 +1,5 @@
 <?php
-namespace Geekbrains\LevelTwo\Blog\Command;
+namespace Geekbrains\LevelTwo\Blog\Commands;
 
 use Geekbrains\LevelTwo\Blog\Exceptions\ArgumentsException;
 
