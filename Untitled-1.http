@@ -1,3 +1,6 @@
-GET http://127.0.0.1:8000/http.php
-Cookie: XDEBUG_SESSION=start
+GET http://127.0.0.1:8000/post/create/?name=1
+
+
+
+
 
