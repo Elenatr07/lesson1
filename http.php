@@ -7,6 +7,9 @@ use Geekbrains\LevelTwo\Http\SuccessfulResponse;
 use Geekbrains\LevelTwo\Blog\Exceptions\AppException;
 use Geekbrains\LevelTwo\Blog\Exceptions\HttpException;
 use Geekbrains\LevelTwo\Http\Actions\Posts\CreatePost;
+
+
+use Geekbrains\LevelTwo\Http\Actions\Posts\DeletePost;
 use Geekbrains\LevelTwo\Http\Actions\Users\CreateUser;
 use Geekbrains\LevelTwo\Http\Actions\Users\FindByUsername;
 use Geekbrains\LevelTwo\Blog\Repositories\PostRepository\SqlitePostsRepository;
@@ -39,6 +42,13 @@ $routes = [
             )
         ),
       ],
+      'DELETE' => [
+        '/posts' => new DeletePost(
+            new SqlitePostsRepository(
+                new PDO('sqlite:' . __DIR__ . '/blog.sqlite')
+            )
+        )
+        ],
   
 
 ];
