@@ -1,4 +1,14 @@
-GET http://127.0.0.1:8000/post/create/?name=1
+POST http://127.0.0.1:8000/posts/create
+
+{
+
+"author_uuid": "c08cbba8-999a-4586-bd33-09d6e8c7f624",
+"title": "Taranov",
+"text": "some title"
+}
+
+
+
 
 
 
