@@ -1,4 +1,11 @@
-DELETE  http://127.0.0.1:8000/posts?uuid=d864a579-bedb-4ed3-af96-dc1c5ebddb77
+POST http://127.0.0.1:8000/posts/create
+
+{
+
+"author_uuid": "c08cbba8-999a-4586-bd33-09d6e8c7f624",
+"title": "Taranov",
+"text": "some title"
+}
 
 
 

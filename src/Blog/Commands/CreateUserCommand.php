@@ -21,13 +21,13 @@ class CreateUserCommand
     {
         $username = $arguments-> get('username');
        
-        // Проверяем, существует ли пользователь в репозитории
+       
         if ($this->userExists($username)) {
-        // Бросаем исключение, если пользователь уже существует
+        
         throw new CommandException("User already exists: $username");
         }
         
-        // Сохраняем пользователя в репозиторий
+    
         $this->usersRepository->save(new User(
             UUID::random(),
             new Name(
@@ -40,7 +40,7 @@ class CreateUserCommand
     private function userExists(string $username): bool
     {
         try {
-        // Пытаемся получить пользователя из репозитория
+        
         $this->usersRepository->getByUsername($username);
         } catch (UserNotFoundException) {
         return false;
