@@ -1,0 +1,5 @@
+[2023-05-29T12:12:53.423449+00:00] blog.INFO: Create user command started [] []
+[2023-05-29T12:12:53.564775+00:00] blog.INFO: User created: 2daef35b-58c7-416b-9a1d-424286e5332a [] []
+[2023-05-29T12:13:29.436849+00:00] blog.INFO: Create user command started [] []
+[2023-05-29T12:13:29.441254+00:00] blog.WARNING: User already exists: user123 [] []
+[2023-05-29T12:56:56.432744+00:00] blog.INFO: Post created: 1d33d627-4685-4065-b67b-990beea96d09 [] []
