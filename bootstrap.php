@@ -3,8 +3,10 @@
 
 use Geekbrains\LevelTwo\Blog\Container\DIContainer;
 use Geekbrains\LevelTwo\Blog\Repositories\PostRepository\SqlitePostsRepository;
+use Geekbrains\LevelTwo\Blog\Repositories\LikesRepository\SqliteLikesRepository;
 use Geekbrains\LevelTwo\Blog\Repositories\UsersRepository\SqliteUsersRepository;
 use Geekbrains\LevelTwo\Blog\Repositories\PostRepository\PostRepositoryInterface;
+use Geekbrains\LevelTwo\Blog\Repositories\LikesRepository\LikesRepositoryInterface;
 use Geekbrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
 
 
@@ -16,6 +18,11 @@ $container = new DIContainer();
 $container->bind(
     PDO::class,
     new PDO('sqlite:' . __DIR__ . '/blog.sqlite')
+);
+
+$container->bind(
+    LikesRepositoryInterface::class,
+    SqliteLikesRepository::class
 );
 
 $container->bind(

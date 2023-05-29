@@ -3,10 +3,12 @@
 use Geekbrains\LevelTwo\Http\Request;
 use Geekbrains\LevelTwo\Http\ErrorResponse;
 use Geekbrains\LevelTwo\Blog\Exceptions\AppException;
+
 use Geekbrains\LevelTwo\Blog\Exceptions\HttpException;
 use Geekbrains\LevelTwo\Http\Actions\Posts\CreatePost;
 use Geekbrains\LevelTwo\Http\Actions\Posts\DeletePost;
 use Geekbrains\LevelTwo\Http\Actions\Users\CreateUser;
+use Geekbrains\LevelTwo\Http\Actions\Likes\CreatePostLike;
 use Geekbrains\LevelTwo\Http\Actions\Users\FindByUsername;
 
 
@@ -41,6 +43,7 @@ $routes = [
     'POST' => [
         '/users/create' => CreateUser::class,
         '/posts/create' => CreatePost::class,
+        '/post-likes/create' => CreatePostLike::class,
     ],
     'DELETE' => [
         '/posts' => DeletePost::class,
