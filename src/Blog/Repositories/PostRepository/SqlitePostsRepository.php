@@ -2,7 +2,7 @@
 
 namespace Geekbrains\LevelTwo\Blog\Repositories\PostRepository;
 
-use PDO;
+
 use Geekbrains\LevelTwo\Blog\Post;
 use Geekbrains\LevelTwo\Blog\UUID;
 use Geekbrains\LevelTwo\Blog\Exceptions\PostNotFoundException;
@@ -16,7 +16,7 @@ use Geekbrains\LevelTwo\Blog\Repositories\PostRepository\PostRepositoryInterface
 
 class SqlitePostsRepository implements PostRepositoryInterface
 {
-    private PDO $connection;
+    private \PDO $connection;
 
     public function __construct(\PDO $connection)
     {

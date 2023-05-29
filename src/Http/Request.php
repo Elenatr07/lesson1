@@ -8,9 +8,7 @@ use Geekbrains\LevelTwo\Blog\Exceptions\JsonException;
 class Request
 {
     public function __construct(
-// аргумент, соответствующий суперглобальной переменной $_GET
         private array $get,
-// аргумент, соответствующий суперглобальной переменной $_SERVER
         private array $server,
         private string $body,
     ) {
@@ -18,10 +16,7 @@ class Request
 
         public function method(): string
     {
-    // В суперглобальном массиве $_SERVER
-    // HTTP-метод хранится под ключом REQUEST_METHOD
         if (!array_key_exists('REQUEST_METHOD', $this->server)) {
-    // Если мы не можем получить метод - бросаем исключение
             throw new HttpException('Cannot get method from the request');
         }
         return $this->server['REQUEST_METHOD'];
@@ -30,12 +25,10 @@ class Request
     public function jsonBody(): array
     {
         try {
-// Пытаемся декодировать json
+
             $data = json_decode(
                 $this->body,
-// Декодируем в ассоциативный массив
                 associative: true,
-// Бросаем исключение при ошибке
                 flags: JSON_THROW_ON_ERROR
             );
         } catch (JsonException) {
