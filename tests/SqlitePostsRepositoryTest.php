@@ -9,6 +9,7 @@ use Geekbrains\LevelTwo\Blog\Post;
 use Geekbrains\LevelTwo\Blog\User;
 use Geekbrains\LevelTwo\Blog\UUID;
 use Geekbrains\LevelTwo\Person\Name;
+use Geekbrains\Blog\UnitTests\DummyLogger;
 use Geekbrains\LevelTwo\Blog\Exceptions\PostNotFoundException;
 use Geekbrains\LevelTwo\Blog\Repositories\PostRepository\SqlitePostsRepository;
 
@@ -24,7 +25,7 @@ class SqlitePostsRepositoryTest extends TestCase
         $statementStub->method('fetch')->willReturn(false);
         $connectionMock->method('prepare')->willReturn($statementStub);
 
-        $repository = new SqlitePostsRepository($connectionMock);
+        $repository = new SqlitePostsRepository($connectionMock, new DummyLogger());
 
         $this->expectExceptionMessage('Cannot find post: 5b2a184e-789b-4b78-8f34-eb44cdc02d06');
         $this->expectException(PostNotFoundException::class);
@@ -47,7 +48,7 @@ class SqlitePostsRepositoryTest extends TestCase
             ]);
 
         $connectionStub->method('prepare')->willReturn($statementMock);
-        $repository = new SqlitePostsRepository($connectionStub);
+        $repository = new SqlitePostsRepository($connectionStub, new DummyLogger());
 
 
         $user = new User(
@@ -83,7 +84,7 @@ class SqlitePostsRepositoryTest extends TestCase
 
         $connectionStub->method('prepare')->willReturn($statementMock);
 
-        $postRepository = new SqlitePostsRepository($connectionStub);
+        $postRepository = new SqlitePostsRepository($connectionStub, new DummyLogger());
         $post = $postRepository->get(new UUID('7a832e50-78e0-4002-b0bf-f2545296c024'));
 
         $this->assertSame('7a832e50-78e0-4002-b0bf-f2545296c024', (string)$post->getUuid());

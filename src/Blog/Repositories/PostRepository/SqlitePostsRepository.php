@@ -3,6 +3,7 @@
 namespace Geekbrains\LevelTwo\Blog\Repositories\PostRepository;
 
 
+use Psr\Log\LoggerInterface;
 use Geekbrains\LevelTwo\Blog\Post;
 use Geekbrains\LevelTwo\Blog\UUID;
 use Geekbrains\LevelTwo\Blog\Exceptions\PostNotFoundException;
@@ -17,10 +18,12 @@ use Geekbrains\LevelTwo\Blog\Repositories\PostRepository\PostRepositoryInterface
 class SqlitePostsRepository implements PostRepositoryInterface
 {
     private \PDO $connection;
+    private LoggerInterface $logger;
 
-    public function __construct(\PDO $connection)
+    public function __construct(\PDO $connection, LoggerInterface $logger)
     {
         $this->connection = $connection;
+        $this->logger = $logger;
     }
 
     public function save(Post $post): void
@@ -36,6 +39,7 @@ class SqlitePostsRepository implements PostRepositoryInterface
             ':text' => $post->getText()
         ]);
 
+        $this->logger->info("Post created: {$post->getUuid()}");
     }
 
 
@@ -65,9 +69,9 @@ class SqlitePostsRepository implements PostRepositoryInterface
         $result = $statement->fetch(\PDO::FETCH_ASSOC);
 
         if ($result === false) {
-            throw new PostNotFoundException(
-                "Cannot find post: $postUuId"
-            );
+            $message = "Cannot find post: $postUuId";
+            $this->logger->warning($message);
+            throw new PostNotFoundException($message);
         }
 
         $userRepository = new SqliteUsersRepository($this->connection);
