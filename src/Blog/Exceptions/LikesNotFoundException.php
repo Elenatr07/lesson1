@@ -1,8 +1,6 @@
 <?php
 
-namespace Geekbrains\LevelTwo\Blog\Exceptions;
-
-use Geekbrains\LevelTwo\Blog\Exceptions\AppException;
+namespace GeekBrains\LevelTwo\Blog\Exceptions;
 
 class LikesNotFoundException extends AppException
 {

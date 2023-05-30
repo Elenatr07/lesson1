@@ -1,18 +1,13 @@
 <?php
 
-namespace Geekbrains\Blog\UnitTests\Container;
+namespace GeekBrains\Blog\UnitTests\Container;
+
+use GeekBrains\LevelTwo\Blog\Container\DIContainer;
+use GeekBrains\LevelTwo\Blog\Exceptions\NotFoundException;
+use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
+use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\InMemoryUsersRepository;
 
 use PHPUnit\Framework\TestCase;
-use Geekbrains\LevelTwo\Blog\Container\DIContainer;
-use Geekbrains\LevelTwo\Blog\Exceptions\NotFoundException;
-use Geekbrains\Blog\UnitTests\Container\SomeClassWithParameter;
-use Geekbrains\Blog\UnitTests\Container\ClassDependingOnAnother;
-use Geekbrains\LevelTwo\Blog\Repositories\UsersRepository\InMemoryUsersRepository;
-use Geekbrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
-
-
-
-
 
 class DIContainerTest extends TestCase
 {
@@ -53,18 +48,29 @@ class DIContainerTest extends TestCase
 
     public function testItResolvesClassByContract(): void
     {
+    // Создаём объект контейнера
         $container = new DIContainer();
+    // Устанавливаем правило, по которому
+    // всякий раз, когда контейнеру нужно
+    // создать объект, реализующий контракт
+    // UsersRepositoryInterface, он возвращал бы
+    // объект класса InMemoryUsersRepository
         $container->bind(
             UsersRepositoryInterface::class,
             InMemoryUsersRepository::class
         );
 
-       $object = $container->get(UsersRepositoryInterface::class);
+// Пытаемся получить объект класса,
+// реализующего контракт UsersRepositoryInterface
+        $object = $container->get(UsersRepositoryInterface::class);
+// Проверяем, что контейнер вернул
+// объект класса InMemoryUsersRepository
         $this->assertInstanceOf(
             InMemoryUsersRepository::class,
             $object
         );
     }
+
 
     public function testItResolvesClassWithoutDependencies(): void
     {
@@ -81,11 +87,14 @@ class DIContainerTest extends TestCase
 
     public function testItThrowsAnExceptionIfCannotResolveType(): void
     {
+        // Создаём объект контейнера
         $container = new DIContainer();
+// Описываем ожидаемое исключение
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage(
-            'Cannot resolve type: Geekbrains\Blog\UnitTests\Container\SomeClass'
+            'Cannot resolve type: GeekBrains\Blog\UnitTests\Container\SomeClass'
         );
+// Пытаемся получить объект несуществующего класса
         $container->get(SomeClass::class);
 
     }
