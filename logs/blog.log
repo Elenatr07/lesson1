@@ -34,3 +34,5 @@
 [2023-05-30T15:03:12.223975+00:00] blog.INFO: User created: 4208d5ab-89e6-4707-9af7-110690ea700d [] []
 [2023-05-30T15:03:44.644334+00:00] blog.INFO: Create user command started [] []
 [2023-05-30T15:03:44.655494+00:00] blog.INFO: User created: f66a1382-981f-41e2-9944-32b93fa3ee08 [] []
+[2023-05-30T15:29:55.482856+00:00] blog.INFO: Create user command started [] []
+[2023-05-30T15:29:55.578275+00:00] blog.INFO: User created: cc39b7af-8eaf-464c-869f-0bb953067bb0 [] []
