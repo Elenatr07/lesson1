@@ -1,45 +1,113 @@
 <?php
-namespace Geekbrains\LevelTwo\Blog;
 
+namespace GeekBrains\LevelTwo\Blog;
 
-use Geekbrains\LevelTwo\Blog\UUID;
-use Geekbrains\LevelTwo\Person\Name;
+use GeekBrains\LevelTwo\Person\Name;
 
-class User {
-    private UUID $uuid;
-    private Name $name;
-    private string $username;
-    public function __construct(UUID $uuid, Name $name, string $username) {
-        $this -> uuid = $uuid;
-        $this -> name = $name;
-        $this -> username = $username;
+class User
+{
+
+    /**
+     * @param UUID $uuid
+     * @param Name $name
+     * @param string $username
+     * @param string $hashedPassword
+     */
+    public function __construct(
+        private UUID   $uuid,
+        private Name   $name,
+        private string $username,
+        private string $hashedPassword
+    )
+    {
     }
-    public function __toString(): string {
-        return "User $this->uuid with name $this->name and username $this->username.". PHP_EOL;
+
+    // Переименовали функцию
+    public function hashedPassword(): string
+    {
+        return $this->hashedPassword;
     }
+
+    // Функция для вычисления хеша
+    private static function hash(string $password, UUID $uuid): string
+    {
+        return hash('sha256',  $uuid . $password);
+    }
+
+    // Функция для проверки предъявленного пароля
+    public function checkPassword(string $password): bool
+    {
+        return $this->hashedPassword === self::hash($password, $this->uuid);
+    }
+
+
+    public function __toString(): string
+    {
+        return "Юзер $this->uuid с именем $this->name и логином $this->username." . PHP_EOL;
+    }
+
+
+
+// Функция для создания нового пользователя
+
+    /**
+     * @throws Exceptions\InvalidArgumentException
+     */
+    public static function createFrom(
+        string $username,
+        string $password,
+        Name   $name
+    ): self
+    {
+        $uuid = UUID::random();
+        return new self(
+            $uuid,
+            $name,
+            $username,
+            self::hash($password, $uuid),
+        );
+    }
+
+    /**
+     * @return UUID
+     */
     public function uuid(): UUID
     {
         return $this->uuid;
     }
 
-      
+
+    /**
+     * @return Name
+     */
     public function name(): Name
     {
         return $this->name;
     }
 
-  
-    public function setUsername(Name $name): void
+    /**
+     * @param Name $name
+     */
+    public function setName(Name $name): void
     {
         $this->name = $name;
     }
 
-   
+    /**
+     * @return string
+     */
     public function username(): string
     {
         return $this->username;
     }
 
-    
-   
+    /**
+     * @param string $username
+     */
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
+    }
+
+
 }

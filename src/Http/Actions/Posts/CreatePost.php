@@ -1,42 +1,51 @@
 <?php
 
-namespace Geekbrains\LevelTwo\Http\Actions\Posts;
+namespace GeekBrains\LevelTwo\Http\Actions\Posts;
 
+use GeekBrains\LevelTwo\Blog\Exceptions\AuthException;
+use GeekBrains\LevelTwo\Blog\Exceptions\InvalidArgumentException;
+use GeekBrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
+use GeekBrains\LevelTwo\Blog\Post;
+use GeekBrains\LevelTwo\Blog\Repositories\PostsRepository\PostsRepositoryInterface;
+use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
+use GeekBrains\LevelTwo\Blog\UUID;
+use GeekBrains\LevelTwo\Blog\Exceptions\HttpException;
+use GeekBrains\LevelTwo\http\Actions\ActionInterface;
+use GeekBrains\LevelTwo\Http\Auth\AuthenticationInterface;
+use GeekBrains\LevelTwo\Http\Auth\IdentificationInterface;
+use GeekBrains\LevelTwo\Http\Auth\JsonBodyUsernameIdentification;
+use GeekBrains\LevelTwo\Http\Auth\TokenAuthenticationInterface;
+use GeekBrains\LevelTwo\http\ErrorResponse;
+use GeekBrains\LevelTwo\http\Request;
+use GeekBrains\LevelTwo\http\Response;
+use GeekBrains\LevelTwo\http\SuccessfulResponse;
 use Psr\Log\LoggerInterface;
-use Geekbrains\LevelTwo\Blog\Post;
-use Geekbrains\LevelTwo\Blog\UUID;
-use Geekbrains\LevelTwo\Http\Request;
-use Geekbrains\LevelTwo\Http\Response;
-use Geekbrains\LevelTwo\Http\ErrorResponse;
-use Geekbrains\LevelTwo\Http\SuccessfulResponse;
-use Geekbrains\LevelTwo\Http\Actions\ActionInterface;
-use Geekbrains\LevelTwo\Blog\Exceptions\AuthException;
-use Geekbrains\LevelTwo\Blog\Exceptions\HttpException;
-use Geekbrains\LevelTwo\Http\Auth\IdentificationInterface;
-use Geekbrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
-use Geekbrains\LevelTwo\Blog\Exceptions\InvalidArgumentException;
-use Geekbrains\LevelTwo\Blog\Repositories\PostRepository\PostRepositoryInterface;
-use Geekbrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
-
-
 
 class CreatePost implements ActionInterface
 {
     public function __construct(
-        private PostRepositoryInterface $postsRepository,
+        private PostsRepositoryInterface $postsRepository,
+// Внедряем контракт логгера
         private LoggerInterface $logger,
-        private IdentificationInterface $identification,
+        private TokenAuthenticationInterface $authentication,
+
+
     )
     {
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function handle(Request $request): Response
     {
+
         try {
-            $user = $this->identification->user($request);
+            $user = $this->authentication->user($request);
         } catch (AuthException $e) {
             return new ErrorResponse($e->getMessage());
         }
+
 
         $newPostUuid = UUID::random();
 

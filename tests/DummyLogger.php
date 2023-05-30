@@ -1,11 +1,9 @@
 <?php
 
-namespace Geekbrains\Blog\UnitTests;
+namespace GeekBrains\Blog\UnitTests;
 
 use Psr\Log\LoggerInterface;
 use Stringable;
-
-
 
 class DummyLogger implements LoggerInterface
 {

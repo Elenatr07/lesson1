@@ -1,19 +1,17 @@
 <?php
 
-namespace Geekbrains\LevelTwo\Http\Actions\Users;
+namespace GeekBrains\LevelTwo\Http\Actions\Users;
 
-use Geekbrains\LevelTwo\Blog\User;
-use Geekbrains\LevelTwo\Blog\UUID;
-use Geekbrains\LevelTwo\Person\Name;
-use Geekbrains\LevelTwo\Http\Request;
-use Geekbrains\LevelTwo\Http\Response;
-use Geekbrains\LevelTwo\Http\ErrorResponse;
-use Geekbrains\LevelTwo\Http\SuccessfulResponse;
-use Geekbrains\LevelTwo\Http\Actions\ActionInterface;
-use Geekbrains\LevelTwo\Blog\Exceptions\HttpException;
-use Geekbrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
-
-
+use GeekBrains\LevelTwo\Blog\Exceptions\HttpException;
+use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
+use GeekBrains\LevelTwo\Blog\User;
+use GeekBrains\LevelTwo\Blog\UUID;
+use GeekBrains\LevelTwo\http\Actions\ActionInterface;
+use GeekBrains\LevelTwo\http\ErrorResponse;
+use GeekBrains\LevelTwo\http\Request;
+use GeekBrains\LevelTwo\http\Response;
+use GeekBrains\LevelTwo\http\SuccessfulResponse;
+use GeekBrains\LevelTwo\Person\Name;
 
 class CreateUser implements ActionInterface
 {

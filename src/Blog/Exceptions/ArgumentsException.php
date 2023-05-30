@@ -1,7 +1,8 @@
 <?php
-namespace Geekbrains\LevelTwo\Blog\Exceptions;
+
+namespace GeekBrains\LevelTwo\Blog\Exceptions;
 
 class ArgumentsException extends AppException
 {
-    
+
 }

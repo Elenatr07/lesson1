@@ -1,6 +1,6 @@
 <?php
 
-namespace Geekbrains\Blog\UnitTests\Container;
+namespace GeekBrains\Blog\UnitTests\Container;
 
 class SomeClassWithParameter
 {

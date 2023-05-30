@@ -1,21 +1,17 @@
 <?php
 
-namespace Geekbrains\LevelTwo\Blog\Repositories\PostRepository;
+namespace GeekBrains\LevelTwo\Blog\Repositories\PostsRepository;
 
-
+use GeekBrains\LevelTwo\Blog\Exceptions\InvalidArgumentException;
+use GeekBrains\LevelTwo\Blog\Exceptions\PostNotFoundException;
+use GeekBrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
+use GeekBrains\LevelTwo\Blog\Post;
+use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\SqliteUsersRepository;
+use GeekBrains\LevelTwo\Blog\UUID;
 use Psr\Log\LoggerInterface;
-use Geekbrains\LevelTwo\Blog\Post;
-use Geekbrains\LevelTwo\Blog\UUID;
-use Geekbrains\LevelTwo\Blog\Exceptions\PostNotFoundException;
-use Geekbrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
-use Geekbrains\LevelTwo\Blog\Exceptions\InvalidArgumentException;
-use Geekbrains\LevelTwo\Blog\Repositories\UsersRepository\SqliteUsersRepository;
-use Geekbrains\LevelTwo\Blog\Repositories\PostRepository\PostRepositoryInterface;
 
 
-
-
-class SqlitePostsRepository implements PostRepositoryInterface
+class SqlitePostsRepository implements PostsRepositoryInterface
 {
     private \PDO $connection;
     private LoggerInterface $logger;
@@ -33,13 +29,13 @@ class SqlitePostsRepository implements PostRepositoryInterface
         );
 
         $statement->execute([
-            ':uuid' => $post->getUuid(),
+            ':uuid' => $post->uuid(),
             ':author_uuid' => $post->getUser()->uuid(),
             ':title' => $post->getTitle(),
             ':text' => $post->getText()
         ]);
 
-        $this->logger->info("Post created: {$post->getUuid()}");
+        $this->logger->info("Post created: {$post->uuid()}");
     }
 
 
@@ -71,6 +67,7 @@ class SqlitePostsRepository implements PostRepositoryInterface
         if ($result === false) {
             $message = "Cannot find post: $postUuId";
             $this->logger->warning($message);
+
             throw new PostNotFoundException($message);
         }
 

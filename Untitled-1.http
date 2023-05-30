@@ -1,13 +1,18 @@
 POST http://127.0.0.1:8000/posts/create
-Accept: application/json
 
 {
-
-"username": "admin",
-"title": "tytyt",
-"text": "text text"
-
+"username": "user4",
+"password": "pass1",
+"text": "some text",
+"title": "some title"
 }
+
+
+
+
+
+
+
 
 
 

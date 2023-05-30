@@ -2,12 +2,12 @@
     "name": "geekbrains/leveltwo",
     "autoload": {
         "psr-4": {
-            "Geekbrains\\LevelTwo\\": "src/"
+            "GeekBrains\\LevelTwo\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-          "Geekbrains\\Blog\\UnitTests\\": "tests/"
+          "GeekBrains\\Blog\\UnitTests\\": "tests/"
         }
       },
     "authors": [

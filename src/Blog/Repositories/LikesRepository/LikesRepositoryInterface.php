@@ -1,11 +1,9 @@
 <?php
 
-namespace Geekbrains\LevelTwo\Blog\Repositories\LikesRepository;
+namespace GeekBrains\LevelTwo\Blog\Repositories\LikesRepository;
 
-use Geekbrains\LevelTwo\Blog\Like;
-use Geekbrains\LevelTwo\Blog\UUID;
-
-
+use GeekBrains\LevelTwo\Blog\Like;
+use GeekBrains\LevelTwo\Blog\UUID;
 
 interface LikesRepositoryInterface
 {

@@ -1,35 +1,35 @@
 <?php
 
-namespace Geekbrains\LevelTwo\Http\Actions\Likes;
+namespace GeekBrains\LevelTwo\Http\Actions\Likes;
 
-use Geekbrains\LevelTwo\Blog\Like;
-use Geekbrains\LevelTwo\Blog\UUID;
-use Geekbrains\LevelTwo\Http\Request;
-use Geekbrains\LevelTwo\Http\Response;
-use Geekbrains\LevelTwo\Http\ErrorResponse;
-use Geekbrains\LevelTwo\Http\SuccessfulResponse;
-use Geekbrains\LevelTwo\Http\Actions\ActionInterface;
-use Geekbrains\LevelTwo\Blog\Exceptions\HttpException;
-use Geekbrains\LevelTwo\Blog\Exceptions\LikeAlreadyExists;
-use Geekbrains\LevelTwo\Blog\Exceptions\PostNotFoundException;
-use Geekbrains\LevelTwo\Blog\Exceptions\InvalidArgumentException;
-use Geekbrains\LevelTwo\Blog\Repositories\PostRepository\PostRepositoryInterface;
-use Geekbrains\LevelTwo\Blog\Repositories\LikesRepository\LikesRepositoryInterface;
-
+use GeekBrains\LevelTwo\Blog\Exceptions\HttpException;
+use GeekBrains\LevelTwo\Blog\Exceptions\InvalidArgumentException;
+use GeekBrains\LevelTwo\Blog\Exceptions\LikeAlreadyExists;
+use GeekBrains\LevelTwo\Blog\Exceptions\PostNotFoundException;
+use GeekBrains\LevelTwo\Blog\Like;
+use GeekBrains\LevelTwo\Blog\Repositories\LikesRepository\LikesRepositoryInterface;
+use GeekBrains\LevelTwo\Blog\Repositories\PostsRepository\PostsRepositoryInterface;
+use GeekBrains\LevelTwo\Blog\UUID;
+use GeekBrains\LevelTwo\Http\Actions\ActionInterface;
+use GeekBrains\LevelTwo\Http\ErrorResponse;
+use GeekBrains\LevelTwo\http\Request;
+use GeekBrains\LevelTwo\http\Response;
+use GeekBrains\LevelTwo\Http\SuccessfulResponse;
 
 class CreatePostLike implements ActionInterface
 {
     public   function __construct(
         private LikesRepositoryInterface $likesRepository,
-        private PostRepositoryInterface $postRepository,
+        private PostsRepositoryInterface $postRepository,
     )
     {
     }
 
+
     /**
      * @throws InvalidArgumentException
      */
-       public function handle(Request $request): Response
+    public function handle(Request $request): Response
     {
         try {
             $postUuid = $request->JsonBodyField('post_uuid');
@@ -38,6 +38,7 @@ class CreatePostLike implements ActionInterface
             return new ErrorResponse($e->getMessage());
         }
 
+        //TODO тоже и для юзера добавить
         try {
             $this->postRepository->get(new UUID($postUuid));
         } catch (PostNotFoundException $exception) {
@@ -61,7 +62,7 @@ class CreatePostLike implements ActionInterface
 
         $this->likesRepository->save($like);
 
-        return new SuccessfulResponse(
+        return new SuccessFulResponse(
             ['uuid' => (string)$newLikeUuid]
         );
     }
