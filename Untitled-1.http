@@ -1,8 +1,8 @@
-POST http://127.0.0.1:8000/login
+POST http://127.0.0.1:8000/posts/create
 
 {
-"username": "user2",
-"password": "pass1"
+"title": "123",
+"text": "text"
 }
 
 

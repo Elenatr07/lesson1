@@ -8,15 +8,18 @@ class AuthToken
 {
     public function __construct(
         // Строка токена
-        private string            $token,
+        private string $token,
         // UUID пользователя
-        private UUID              $userUuid,
+        private UUID $userUuid,
         // Срок годности
         private DateTimeImmutable $expiresOn
     )
     {
     }
-
+    public function setExpiresOn(DateTimeImmutable $expiresOn): void
+    {
+        $this->expiresOn = $expiresOn;
+    }
     public function token(): string
     {
         return $this->token;
