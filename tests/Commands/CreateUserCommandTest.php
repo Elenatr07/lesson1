@@ -77,7 +77,7 @@ class CreateUserCommandTest extends TestCase
         $this->expectException(ArgumentsException::class);
         $this->expectExceptionMessage('No such argument: first_name');
 // Запускаем команду
-        $command->handle(new Arguments(['username' => 'Ivan']));
+        $command->handle(new Arguments(['username' => 'Ivan', 'password' => '123']));
     }
 
 
@@ -93,6 +93,7 @@ class CreateUserCommandTest extends TestCase
 // Нам нужно передать имя пользователя,
 // чтобы дойти до проверки наличия фамилии
             'first_name' => 'Ivan',
+            'password' => '123'
         ]));
     }
 
@@ -160,6 +161,7 @@ class CreateUserCommandTest extends TestCase
             'username' => 'Ivan',
             'first_name' => 'Ivan',
             'last_name' => 'Nikitin',
+            'password' => '123'
         ]));
 
         $this->assertTrue($usersRepository->wasCalled());

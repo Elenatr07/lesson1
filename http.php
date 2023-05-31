@@ -1,19 +1,21 @@
 <?php
 
 
+use Psr\Log\LoggerInterface;
+use GeekBrains\LevelTwo\Http\Request;
+use GeekBrains\LevelTwo\Http\ErrorResponse;
+use GeekBrains\LevelTwo\Http\Actions\Auth\LogIn;
+use GeekBrains\LevelTwo\Http\SuccessfulResponse;
+use GeekBrains\LevelTwo\Http\Actions\Auth\LogOut;
 use GeekBrains\LevelTwo\Blog\Exceptions\AppException;
+use GeekBrains\LevelTwo\Blog\Exceptions\HttpException;
+use GeekBrains\LevelTwo\Http\Actions\Posts\CreatePost;
+use GeekBrains\LevelTwo\Http\Actions\Posts\DeletePost;
+use GeekBrains\LevelTwo\Http\Actions\Users\CreateUser;
+use GeekBrains\LevelTwo\Http\Actions\Likes\CreatePostLike;
+use GeekBrains\LevelTwo\Http\Actions\Users\FindByUsername;
 use GeekBrains\LevelTwo\Blog\Repositories\PostsRepository\SqlitePostsRepository;
 use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\SqliteUsersRepository;
-use GeekBrains\LevelTwo\Http\Actions\Auth\LogIn;
-use GeekBrains\LevelTwo\Http\Actions\Posts\CreatePost;
-use GeekBrains\LevelTwo\Http\Actions\Users\CreateUser;
-use GeekBrains\LevelTwo\Http\Actions\Users\FindByUsername;
-use GeekBrains\LevelTwo\Http\ErrorResponse;
-use GeekBrains\LevelTwo\Http\Request;
-use GeekBrains\LevelTwo\Http\SuccessfulResponse;
-use GeekBrains\LevelTwo\Http\Actions\Posts\DeletePost;
-use GeekBrains\LevelTwo\Http\Actions\Likes\CreatePostLike;
-use Psr\Log\LoggerInterface;
 
 $container = require __DIR__ . '/bootstrap.php';
 
@@ -48,6 +50,7 @@ $routes = [
     ],
     'POST' => [
         '/login' => LogIn::class,
+        '/logout' => LogOut::class,
         '/users/create' => CreateUser::class,
         '/posts/create' => CreatePost::class,
         '/post-likes/create' => CreatePostLike::class,
