@@ -2,20 +2,102 @@
 
 namespace GeekBrains\LevelTwo\Commands;
 
+use PHPUnit\Framework\TestCase;
+use GeekBrains\LevelTwo\Blog\User;
+use GeekBrains\LevelTwo\Blog\UUID;
 use GeekBrains\Blog\UnitTests\DummyLogger;
+use Symfony\Component\Console\Input\ArrayInput;
 use GeekBrains\LevelTwo\Blog\Commands\Arguments;
+use Symfony\Component\Console\Output\NullOutput;
+use GeekBrains\LevelTwo\Blog\Commands\Users\CreateUser;
 use GeekBrains\LevelTwo\Blog\Commands\CreateUserCommand;
-use GeekBrains\LevelTwo\Blog\Exceptions\ArgumentsException;
 use GeekBrains\LevelTwo\Blog\Exceptions\CommandException;
+use Symfony\Component\Console\Exception\RuntimeException;
+use GeekBrains\LevelTwo\Blog\Exceptions\ArgumentsException;
 use GeekBrains\LevelTwo\Blog\Exceptions\UserNotFoundException;
 use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\DummyUsersRepository;
 use GeekBrains\LevelTwo\Blog\Repositories\UsersRepository\UsersRepositoryInterface;
-use GeekBrains\LevelTwo\Blog\User;
-use GeekBrains\LevelTwo\Blog\UUID;
-use PHPUnit\Framework\TestCase;
 
 class CreateUserCommandTest extends TestCase
 {
+    public function testItSavesUserToRepository(): void
+    {
+        $usersRepository =  new class implements UsersRepositoryInterface {
+// В этом свойстве мы храним информацию о том,
+// был ли вызван метод save
+            private bool $called = false;
+
+            public function save(User $user): void
+            {
+// Запоминаем, что метод save был вызван
+                $this->called = true;
+            }
+
+            public function get(UUID $uuid): User
+            {
+
+                throw new UserNotFoundException("Not found");
+            }
+
+            public function getByUsername(string $username): User
+            {
+                throw new UserNotFoundException("Not found");
+            }
+// Этого метода нет в контракте UsersRepositoryInterface,
+// но ничто не мешает его добавить.
+// С помощью этого метода мы можем узнать,
+// был ли вызван метод save
+            public function wasCalled(): bool
+            {
+                return $this->called;
+            }
+        };
+
+        $command = new CreateUser(
+            $usersRepository
+        );
+        $command->run(
+            new ArrayInput([
+                'username' => 'Ivan',
+                'password' => 'some_password',
+                'first_name' => 'Ivan',
+                'last_name' => 'Nikitin',
+            ]),
+            new NullOutput()
+        );
+        $this->assertTrue($usersRepository->wasCalled());
+    }
+
+
+    public function testItRequiresLastNameNew(): void
+    {
+// Тестируем новую команду
+        $command = new CreateUser(
+            $this->makeUsersRepository(),
+        );
+// Меняем тип ожидаемого исключения ..
+        $this->expectException(RuntimeException::class);
+// .. и его сообщение
+        $this->expectExceptionMessage(
+            'Not enough arguments (missing: "last_name").'
+        );
+// Запускаем команду методом run вместо handle
+        $command->run(
+// Передаём аргументы как ArrayInput,
+// а не Arguments
+// Сами аргументы не меняются
+            new ArrayInput([
+                'username' => 'Ivan',
+                'password' => 'some_password',
+                'first_name' => 'Ivan',
+            ]),
+// Передаём также объект,
+// реализующий контракт OutputInterface
+// Нам подойдёт реализация,
+// которая ничего не делает
+            new NullOutput()
+        );
+    }
 
     public function testItRequiresPassword(): void
     {
@@ -120,7 +202,7 @@ class CreateUserCommandTest extends TestCase
     }
 
     // Тест, проверяющий, что команда сохраняет пользователя в репозитории
-    public function testItSavesUserToRepository(): void
+    public function testItSavesUserToRepositoryOld(): void
     {
         // Создаём объект анонимного класса
         $usersRepository = new class implements UsersRepositoryInterface {
