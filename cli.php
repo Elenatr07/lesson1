@@ -18,6 +18,8 @@ $application = new Application();
 $commandsClasses = [
     CreateUser::class,
     DeletePost::class,
+    UpdateUser::class,
+    PopulateDB::class,
    
 ];
 
